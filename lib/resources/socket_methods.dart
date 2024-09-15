@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multi_tictactoe/provider/room_data_provider.dart';
+import 'package:multi_tictactoe/resources/game_methods.dart';
 import 'package:multi_tictactoe/resources/socket_client.dart';
 import 'package:multi_tictactoe/screens/game_screen.dart';
 import 'package:multi_tictactoe/utils/utils.dart';
@@ -102,7 +103,28 @@ class SocketMethods {
           data['choice'],
         );
         roomDataProvider.updateRoomData(data['room']);
+        // Check for winner as well on all taps
+        GameMethods().checkWinner(context, _socketClient);
       },
     );
+  }
+
+  void pointIncreaseListener(BuildContext context) {
+    _socketClient.on('pointIncrease', (playerData) {
+      var roomDataProvider = Provider.of<RoomDataProvider>(context);
+      if (playerData['socketID'] == roomDataProvider.player1.socketID) {
+        roomDataProvider.updatePlayer1(playerData);
+      } else {
+        roomDataProvider.updatePlayer2(playerData );
+      }
+    });
+  }
+
+
+  void endGameListener(BuildContext context){
+    _socketClient.on('endGame',(playerData)=>{
+      showGameDialog(context, '${playerData['nickname']} won the game!!'),
+      Navigator.popUntil(context, (route)=>false), //Pops off all screens until the game stops
+    });
   }
 }
