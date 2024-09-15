@@ -34,7 +34,6 @@ class SocketMethods {
   }
 
   void tapGrid(int index, String roomId, List<String> displayElements) {
-    print(displayElements);
     if (displayElements[index] == '') {
       _socketClient.emit('tap', {
         'index': index,
@@ -95,10 +94,13 @@ class SocketMethods {
     _socketClient.on(
       "tapped",
       (data) {
-        print("heard a tap - methods");
+        // print(_socketClient.id);
         RoomDataProvider roomDataProvider =
             Provider.of<RoomDataProvider>(context, listen: false);
-        roomDataProvider.updateDisplayElements(data['index'], data['choice']);
+        roomDataProvider.updateDisplayElements(
+          data['index'],
+          data['choice'],
+        );
         roomDataProvider.updateRoomData(data['room']);
       },
     );

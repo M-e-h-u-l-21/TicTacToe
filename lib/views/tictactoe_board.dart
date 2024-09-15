@@ -40,19 +40,20 @@ class _TictactoeBoardState extends State<TictactoeBoard> {
         maxHeight: size.height * 0.7,
         maxWidth: 500,
       ),
-
       child: AbsorbPointer(
         // Used to restrict turn according to the valid user only
         absorbing: roomDataProvider.roomData['turn']['socketID'] !=
             _socketMethods.socketClient.id,
+            
         child: GridView.builder(
+          
           itemCount: 9,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3),
           itemBuilder: (context, index) {
+            
             return GestureDetector(
               onTap: () {
-                // print("tapped");
                 _socketMethods.tapGrid(
                   index,
                   roomDataProvider.roomData['_id'],

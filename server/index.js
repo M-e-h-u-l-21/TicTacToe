@@ -64,11 +64,11 @@ io.on('connection', (socket) => {
       if(room.isJoined){
         let player = {
           nickname,
-          socketId:socket.id,
+          socketID:socket.id,
           playerType:'O',
         }
-        socket.join(roomId);
         room.isJoined = false;
+        socket.join(roomId);
         room.players.push(player);
         room = await room.save();
         io.to(roomId).emit("JoinRoomSuccess",room);

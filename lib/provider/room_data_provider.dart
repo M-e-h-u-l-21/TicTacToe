@@ -32,7 +32,6 @@ class RoomDataProvider extends ChangeNotifier {
   }
 
   void updateDisplayElements(int index, String choice) {
-    print("display element to be updated - Provider");
     _filledBoxes+=1;
     _displayElements[index] = choice;
     notifyListeners();
