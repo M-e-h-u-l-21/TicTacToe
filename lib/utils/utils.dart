@@ -22,7 +22,7 @@ void showGameDialog(BuildContext context, String text) {
               GameMethods().clearBoard(context);
               Navigator.pop(context);
             },
-            child: Text("Play Again"),
+            child: const Text("Play Again"),
           ),
         ],
       );

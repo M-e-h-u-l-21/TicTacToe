@@ -6,7 +6,10 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final bool isReadOnly;
   const CustomTextField(
-      {super.key, required this.controller, required this.hintText,this.isReadOnly = false});
+      {super.key,
+      required this.controller,
+      required this.hintText,
+      this.isReadOnly = false});
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +18,8 @@ class CustomTextField extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Colors.blue,
-            blurRadius: 5,
-            spreadRadius: 3,
+            blurRadius: 8,
+            spreadRadius: 5,
           ),
         ],
       ),

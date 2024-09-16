@@ -11,7 +11,7 @@ class CustomButton extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         boxShadow: [
-          BoxShadow(color: Colors.blue, blurRadius: 10, spreadRadius: 1),
+          BoxShadow(color: Colors.blue, blurRadius: 15, spreadRadius: 1),
         ],
       ),
       child: Padding(

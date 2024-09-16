@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_tictactoe/provider/room_data_provider.dart';
 import 'package:multi_tictactoe/resources/game_methods.dart';
@@ -98,6 +99,11 @@ class SocketMethods {
         // print(_socketClient.id);
         RoomDataProvider roomDataProvider =
             Provider.of<RoomDataProvider>(context, listen: false);
+        roomDataProvider.roomData['turn']['socketID'] == 'X'
+            ? AudioPlayer().play(AssetSource('audio/x.mp3'))
+            : AudioPlayer().play(
+                AssetSource('audio/o.mp3'),
+              );
         roomDataProvider.updateDisplayElements(
           data['index'],
           data['choice'],
@@ -111,20 +117,24 @@ class SocketMethods {
 
   void pointIncreaseListener(BuildContext context) {
     _socketClient.on('pointIncrease', (playerData) {
-      var roomDataProvider = Provider.of<RoomDataProvider>(context);
+      var roomDataProvider =
+          Provider.of<RoomDataProvider>(context, listen: false);
       if (playerData['socketID'] == roomDataProvider.player1.socketID) {
         roomDataProvider.updatePlayer1(playerData);
       } else {
-        roomDataProvider.updatePlayer2(playerData );
+        roomDataProvider.updatePlayer2(playerData);
       }
     });
   }
 
-
-  void endGameListener(BuildContext context){
-    _socketClient.on('endGame',(playerData)=>{
-      showGameDialog(context, '${playerData['nickname']} won the game!!'),
-      Navigator.popUntil(context, (route)=>false), //Pops off all screens until the game stops
-    });
+  void endGameListener(BuildContext context) {
+    _socketClient.on(
+        'endGame',
+        (playerData) => {
+              showGameDialog(
+                  context, '${playerData['nickname']} won the game!!'),
+              Navigator.popUntil(context,
+                  (route) => false), //Pops off all screens until the game stops
+            });
   }
 }

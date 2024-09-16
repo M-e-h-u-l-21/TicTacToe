@@ -38,12 +38,12 @@ class GameMethods {
     if (displayElement[1] == displayElement[4] &&
         displayElement[4] == displayElement[7] &&
         displayElement[1] != '') {
-      winner = displayElement[0];
+      winner = displayElement[1];
     }
     if (displayElement[2] == displayElement[5] &&
         displayElement[5] == displayElement[8] &&
         displayElement[2] != '') {
-      winner = displayElement[0];
+      winner = displayElement[2];
     }
 
     if (displayElement[0] == displayElement[4] &&
@@ -55,7 +55,7 @@ class GameMethods {
     if (displayElement[2] == displayElement[4] &&
         displayElement[4] == displayElement[6] &&
         displayElement[2] != '') {
-      winner = displayElement[0];
+      winner = displayElement[2];
     } else if (roomDataProvider.filledBoxes == 9) {
       winner = '';
       // display dialog saying draw

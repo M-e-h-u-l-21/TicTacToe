@@ -35,7 +35,6 @@ class _TictactoeBoardState extends State<TictactoeBoard> {
     final size = MediaQuery.of(context).size;
 
     return ConstrainedBox(
-
       constraints: BoxConstraints(
         maxHeight: size.height * 0.7,
         maxWidth: 500,
@@ -44,14 +43,13 @@ class _TictactoeBoardState extends State<TictactoeBoard> {
         // Used to restrict turn according to the valid user only
         absorbing: roomDataProvider.roomData['turn']['socketID'] !=
             _socketMethods.socketClient.id,
-            
+
         child: GridView.builder(
-          
           itemCount: 9,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3),
+            crossAxisCount: 3,
+          ),
           itemBuilder: (context, index) {
-            
             return GestureDetector(
               onTap: () {
                 _socketMethods.tapGrid(
@@ -77,11 +75,12 @@ class _TictactoeBoardState extends State<TictactoeBoard> {
                         fontSize: 100,
                         shadows: [
                           Shadow(
-                              blurRadius: 40,
-                              color:
-                                  roomDataProvider.displayElements[index] == 'O'
-                                      ? Colors.red
-                                      : Colors.blue),
+                            blurRadius: 40,
+                            color:
+                                roomDataProvider.displayElements[index] == 'O'
+                                    ? Colors.red
+                                    : Colors.blue,
+                          ),
                         ],
                       ),
                     ),
