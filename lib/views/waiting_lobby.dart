@@ -37,11 +37,14 @@ class _WaitingLobbyState extends State<WaitingLobby> {
         const SizedBox(
           height: 20,
         ),
-        CustomTextField(
-          controller: controller,
-          hintText: '',
-          isReadOnly: true,
-        )
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: CustomTextField(
+            controller: controller,
+            hintText: '',
+            isReadOnly: true,
+          ),
+        ),
       ],
     );
   }

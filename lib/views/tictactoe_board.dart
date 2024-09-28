@@ -55,9 +55,10 @@ class _TictactoeBoardState extends State<TictactoeBoard> {
                 // print(roomDataProvider.displayElements);
                 _socketMethods.tapGrid(
                   index,
-                  roomDataProvider.roomData['token'],
+                  roomDataProvider.roomData['token'].toString(),
                   roomDataProvider.displayElements,
                 );
+                print("Tapped");
               },
               child: Container(
                 decoration: BoxDecoration(
