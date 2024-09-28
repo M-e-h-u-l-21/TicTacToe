@@ -25,6 +25,10 @@ const roomSchema = new mongoose.Schema(
         turnIndex:{ //  keeping track of user's turn using index
             type:Number,
             default:0,
+        },
+        token:{
+            type:Number,
+            required: true,
         }
     }
 );

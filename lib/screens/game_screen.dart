@@ -33,17 +33,19 @@ class _GameScreenState extends State<GameScreen> {
     return Scaffold(
       body: roomDataProvider.roomData['isJoined']
           ? const WaitingLobby()
-          : SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const Scoreboard(),
-                  const TictactoeBoard(),
-                  Text(
-                      '${roomDataProvider.roomData['turn']['nickname']}\'s turn'),
-                ],
+          : Center(
+            child: SafeArea(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Scoreboard(),
+                    const TictactoeBoard(),
+                    Text(
+                        '${roomDataProvider.roomData['turn']['nickname']}\'s turn'),
+                  ],
+                ),
               ),
-            ),
+          ),
     );
   }
 }

@@ -34,18 +34,24 @@ io.on('connection', (socket) => {
         playerType:'X',
     }
 
+    const randomNum = Math.random() * 900000
+    const token = Math.floor(99999 + randomNum)
+// console.log(token) 
+    // console.log(token)
     room.players.push(player);
     room.turn = player;
+    room.token = token;
 
     // Saving in mongodb
     room = await room.save();
     // room variable will get us some _id which will be created by mongodb and will be used by our players
     // to join in 
 
-    const roomId = room._id;
-    console.log(roomId._id);
-    socket.join(roomId);
-    io.to(roomId._id).emit("CreateRoomSuccess",room);
+    const roomId = room;
+    console.log(room);
+    console.log(roomId.token);
+    socket.join(token);
+    io.to(roomId.token).emit("CreateRoomSuccess",room);
     } catch(e){
         console.log(e);
     }
@@ -54,19 +60,20 @@ io.on('connection', (socket) => {
   socket.on("joinRoom",async ({nickname,roomId})=>{
     try{
       // Checking whether the roomID present is a valid one even or not
-      if(!roomId.match(/^[0-9a-fA-F]{24}$/)) {
-        socket.emit('errorOccured','Please enter a valid room ID');
-        return;
-      }
+      // if(!roomId.match(/^[0-9a-fA-F]{24}$/)) {
+      //   socket.emit('errorOccured','Please enter a valid room ID');
+      //   return;
+      // }
 
-      let room = await Room.findById(roomId);
-      console.log(room);
-      if(room.isJoined){
+      let room = await Room.findOne({token:roomId});
+      console.log(`Found room : ${room}`);
+      if(room && room.isJoined == true){
         let player = {
           nickname,
           socketID:socket.id,
           playerType:'O',
         }
+        console.log("About to join")
         room.isJoined = false;
         socket.join(roomId);
         room.players.push(player);
@@ -76,7 +83,6 @@ io.on('connection', (socket) => {
         io.to(roomId).emit("updateRoom",room);
       }else{
         socket.emit('errorOccured','The game is in progress please try again later');
-
       }
     }catch(e){
       console.log(e);
@@ -86,7 +92,7 @@ io.on('connection', (socket) => {
 
   socket.on('tap',async ({index,roomId})=>{
     try{
-      let room = await Room.findById(roomId);
+      let room = await Room.findOne({token:roomId});
       let choice = room['turn']['playerType']; 
       if(room['turnIndex'] == 0){
         room['turn'] = room.players[1];
@@ -110,7 +116,7 @@ io.on('connection', (socket) => {
   socket.on('winner',async ({winnerSocketId,roomId})=>{
     try{
       if(socket.id != winnerSocketId) return;
-      let room = await Room.findById(roomId);
+      let room = await Room.findOne({token:roomId});
       let player = room.players.find((playerr)=> playerr.socketID == winnerSocketId); 
       player.points+=1;
       room = await room.save();

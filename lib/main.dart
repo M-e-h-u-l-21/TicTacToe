@@ -22,7 +22,6 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: bgColor,
-          useMaterial3: false,
         ),
         routes: {
           MainMenuScreen.route: (context) => const MainMenuScreen(),

@@ -17,7 +17,8 @@ class _WaitingLobbyState extends State<WaitingLobby> {
   void initState() {
     controller = TextEditingController(
         text: Provider.of<RoomDataProvider>(context, listen: false)
-            .roomData['_id']);
+            .roomData['token']
+            .toString());
     super.initState();
   }
 

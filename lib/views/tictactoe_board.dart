@@ -52,9 +52,10 @@ class _TictactoeBoardState extends State<TictactoeBoard> {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
+                // print(roomDataProvider.displayElements);
                 _socketMethods.tapGrid(
                   index,
-                  roomDataProvider.roomData['_id'],
+                  roomDataProvider.roomData['token'],
                   roomDataProvider.displayElements,
                 );
               },

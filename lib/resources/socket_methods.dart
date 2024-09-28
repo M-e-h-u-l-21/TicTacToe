@@ -27,19 +27,27 @@ class SocketMethods {
   }
 
   void joinRoom(String nickname, String roomId) {
-    if (nickname.isNotEmpty && roomId.isNotEmpty) {
+    if (roomId.isEmpty) {
+      return;
+    }
+    int token = int.parse(roomId);
+    if (nickname.isNotEmpty) {
       _socketClient.emit('joinRoom', {
         'nickname': nickname,
-        'roomId': roomId,
+        'roomId': token,
       });
     }
   }
 
   void tapGrid(int index, String roomId, List<String> displayElements) {
+    if (roomId.isEmpty) {
+      return;
+    }
+    int token = int.parse(roomId);
     if (displayElements[index] == '') {
       _socketClient.emit('tap', {
         'index': index,
-        'roomId': roomId,
+        'roomId': token,
       });
     }
   }
